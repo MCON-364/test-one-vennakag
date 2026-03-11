@@ -35,6 +35,10 @@ public class BasicStreamQuizTest {
 
     @Test
     void testSquareAll(){
-
+        List<Integer> numbers = List.of(4,6,10);
+        List<Integer> square = test.squareAll(numbers);
+        assertEquals(16, square.get(0));
+        assertEquals(36, square.get(1));
+        assertEquals(100, square.get(2));
     }
 }

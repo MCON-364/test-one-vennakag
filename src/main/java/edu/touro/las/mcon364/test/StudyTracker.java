@@ -63,7 +63,10 @@ public class StudyTracker {
             undoStack.push(new UndoStep() {
                 @Override
                 public void undo() {
-                    scoresByLearner.get(name).remove(score);
+                    var grades = scoresByLearner.get(name);
+                    if (grades != null && !grades.isEmpty()) {
+                        grades.remove(grades.size() - 1); // remove last added grade
+                    }
                 }
             });
         }else{
@@ -139,10 +142,9 @@ public class StudyTracker {
      * Return false if there is nothing to undo.
      */
     public boolean undoLastChange() {
-        if(undoStack.isEmpty()){
-            return false;
-        }
-        undoStack.pop().undo();
+        if(undoStack.isEmpty()) return false;
+        UndoStep curr = undoStack.pop();
+        curr.undo();
         return true;
     }
 
