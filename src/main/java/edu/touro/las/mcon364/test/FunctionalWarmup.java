@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class FunctionalWarmup {
 
@@ -13,7 +14,8 @@ public class FunctionalWarmup {
      * Return a Supplier that gives the current month number (1-12).
      */
     public static Supplier<Integer> currentMonthSupplier() {
-        throw new UnsupportedOperationException();
+
+        return () -> LocalDate.now().getMonthValue();
     }
 
     /**
@@ -22,7 +24,8 @@ public class FunctionalWarmup {
      * has more than 5 characters.
      */
     public static Predicate<String> longerThanFive() {
-        throw new UnsupportedOperationException();
+
+        return (x) -> x.length() > 5;
     }
 
     /**
@@ -34,7 +37,7 @@ public class FunctionalWarmup {
      * Prefer chaining smaller predicates.
      */
     public static Predicate<Integer> positiveAndEven() {
-        throw new UnsupportedOperationException();
+        return (x) -> x > -1 && x%2 == 0;
     }
 
     /**
@@ -48,7 +51,7 @@ public class FunctionalWarmup {
      *
      */
     public static Function<String, Integer> wordCounter() {
-        throw new UnsupportedOperationException();
+        return (x) -> x.split("\\s+").length;
     }
 
     /**
@@ -63,6 +66,6 @@ public class FunctionalWarmup {
      * ["  math ", "", " java", "  "] -> ["MATH", "JAVA"]
      */
     public static List<String> cleanLabels(List<String> labels) {
-        throw new UnsupportedOperationException();
+       return labels.stream().filter(s->!s.isBlank()).map(String::trim).map(String::toUpperCase).collect(Collectors.toList());
     }
 }
