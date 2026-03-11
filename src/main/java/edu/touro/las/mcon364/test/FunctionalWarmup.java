@@ -51,7 +51,10 @@ public class FunctionalWarmup {
      *
      */
     public static Function<String, Integer> wordCounter() {
-        return (x) -> x.split("\\s+").length;
+        return (x) -> {
+            if(x.isBlank()) return 0;
+            return x.trim().split("\\s+").length;
+        };
     }
 
     /**
